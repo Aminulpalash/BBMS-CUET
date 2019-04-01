@@ -1,0 +1,55 @@
+{% load staticfiles %}
+
+<div class="container blogsection ">
+
+  <div class="row  ">
+    <div class="col-md-12  ">
+      <div class="center-heading">
+        <h2>সাম্প্রতিক লেখাগুলি</h2><span class="center-line"></span>
+        <p class="lead"></p>
+      </div>
+    </div>
+  </div>
+
+      <div class="row text-center">
+        {% if not bloglist %}
+        <h2>{ BlogList is Empty }</h2>
+        {% else %}
+        {% for blog in bloglist %}
+        <div class="col-md-4 col-sm-4 col-xs-6">
+          <div class="blog-post">
+
+            <div class="item-image">
+              <a href="">
+                <img src="{{ blog.image.url }}">
+              </a>
+              <div class="overlay"></div>
+            </div>
+            <ul class="list-inline">
+              <li><i class="fa fa-user"></i>{{ blog.writter }}</li>
+              <li><span class="meta-separator">|</span><i class="fa fa-calendar "></i>{{ blog.created_at|date:"M d,Y" }}</li>
+              <li><span class="meta-separator">|</span><i class="fa fa-folder-open "></i>{{ blog.created_at|date:"M d,Y" }}</li>
+            </ul>
+            <div class="blog-info">
+              <h3>{{ blog.title }}</h3>
+              <p>{{ blog.content|safe|slice:":255" }}</p>
+              <a href="{% url 'blog:detail' blog.id %}" class="btn btn-primary">read more...</a>
+            </div>
+
+          </div><!-- blog-post  -->
+
+        </div>
+        {% endfor %}
+        {% endif %}
+
+
+      </div>
+      <!--row-->
+
+      <div class='row'>
+        <div class="col-md-12 text-center">
+          <a href="{% url 'bookmanagement:booklist' %}"><button class="btn btn-info"><i class="fa fa-bars"></i> সকল প্রকাশিত লেখা</button></a>
+        </div>
+      </div>
+
+</div>
